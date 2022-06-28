@@ -10,7 +10,7 @@
   >
     <div class="logo">flashmall后台管理系统</div>
       <div class="user-avator">
-        <img class="img" :src="imgUrl" />
+        <img class="img" src="../../assets/img/img.jpg" />
       </div>
       <el-dropdown >
       <span class="el-dropdown-link">
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       account:"admin",
-      imgUrl:"http://localhost:8080/img/img.146655c9.jpg"
+      imgUrl:"../../assets/img/img.jpg"
     };
   },
   methods: {

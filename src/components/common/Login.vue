@@ -22,10 +22,10 @@
 
 <script>
 export default {
-  name: "MyLogin",
+  name: "Login",
   data(){
     let checkCodeValidate = (rule,value,callback)=>{
-      let url = "user/checkCode";
+      let url = "sys_user/checkCode";
       this.$http.post(url,this.user.checkCode).then(data=>{
         if(!data){
           callback(new Error("验证码输入错误！"));
@@ -52,7 +52,7 @@ export default {
           {validator:checkCodeValidate,trigger:'blur'}
         ]
       },
-      imgURL:'http://localhost:8086/user/getCode'
+      imgURL:'http://localhost:9100/sys_user/getCode'
     }
   },
   methods:{
@@ -60,14 +60,13 @@ export default {
       this.$refs["login"].validate(valid=>{
         if(valid){
           //登录、
-          let url = "user/login";
-          this.$http.get(url,{params:this.user}).then(data=>{
-            if(data != null){
-              alert("登录成功！")
-              this.$store.commit("setUser",this.user.username);
-              this.$router.push({"name":"mymain"});
+          let url = "sys_user/login";
+          this.$http.post(url,this.user).then(res=>{
+            if(res.data.code == 2000){
+              alert(res.data.message)
+              this.$router.push({path:"/main"});
             }else{
-              alert("用户名或密码错误！");
+              alert(res.data.message);
               this.reset();
               this.getCode();
             }

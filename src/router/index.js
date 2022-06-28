@@ -4,6 +4,10 @@ export default createRouter({
     routes:[
         {
             path:'/',
+            component:()=>import('../components/common/Login')
+        },
+        {
+            path:'/main',
             component:()=>import('../components/common/main')
         }
     ]
