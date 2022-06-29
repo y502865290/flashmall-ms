@@ -4,15 +4,34 @@ export default createRouter({
     routes:[
         {
             path:'/',
-            component:()=>import('../components/common/Login')
+            component:()=>import('../components/common/Login'),
+            meta:{
+                title:"flashmall后台登录系统"
+            }
+        },
+        {
+            path:'/register',
+            name:'register',
+            component:()=>import('../components/common/Register'),
+            meta:{
+                title:"flashmall后台注册系统"
+            }
         },
         {
             path:'/main',
             component:()=>import('../components/common/Main'),
+            meta:{
+                title:"flashmall后台管理系统"
+            },
             children:[
                 {
                     path:'product/category',
                     component:()=>import('../components/product/Category')
+                },
+                {
+                    path:'/admin/user',
+                    name:'admin_user',
+                    component:()=>import('../components/admin/User')
                 }
             ]
         }

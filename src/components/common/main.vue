@@ -5,7 +5,7 @@
     <el-container class="my_container2" >
       <Aside></Aside>
       <el-main>
-        <router-view/>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -19,7 +19,9 @@ export default {
   created() {
   },
   data(){
-
+    return{
+      
+    }
   },
   components: {
     Header,

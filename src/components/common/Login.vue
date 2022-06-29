@@ -15,7 +15,7 @@
       <el-button type="primary" style="width: 100%" @click="login">登录</el-button>
     </el-form-item>
     <el-form-item>
-      <el-button style="width: 100%" @click="reset">重置</el-button>
+      <el-button style="width: 100%" @click="register">注册</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -26,8 +26,8 @@ export default {
   data(){
     let checkCodeValidate = (rule,value,callback)=>{
       let url = "sys_user/checkCode";
-      this.$http.post(url,this.user.checkCode).then(data=>{
-        if(!data){
+      this.$http.post(url,this.user.checkCode).then(res=>{
+        if(!res.data.data){
           callback(new Error("验证码输入错误！"));
         }else{
           callback();
@@ -74,6 +74,9 @@ export default {
         }
       });
     },
+    register(){
+      this.$router.push({path:"/register"});
+    },
     reset(){
       if(!this.$refs["login"]) return;
 
@@ -83,12 +86,9 @@ export default {
       this.imgURL = this.imgURL + "?" +Math.random();
       this.user.checkCode = "";
     },
-    show(){
-      console.log("123456789");
-    }
+    
   },
   created(){
-    this.show();
   }
 }
 </script>
