@@ -98,7 +98,7 @@
 export default {
     data(){
         let checkCodeValidate = (rule,value,callback)=>{
-            let url = "sys_user/checkCode";
+            let url = "http://localhost:9100/sys_user/checkCode";
             this.$http.post(url,value).then(res=>{
                 if(!res.data.data){
                     callback(new Error("验证码输入错误"));
@@ -108,7 +108,7 @@ export default {
             });
         };
         let checkUserNameValidate = (rule,value,callback)=>{
-            let url = "sys_user/checkUserName";
+            let url = "http://localhost:9100/sys_user/checkUserName";
             this.$http.post(url,value).then(res=>{
                 if(res.data.data){
                     callback(new Error("用户名已存在"));
@@ -174,7 +174,7 @@ export default {
                 pageNum:this.pageInfo.pageNum,
                 pageSize:this.pageInfo.pageSize
             }
-            let url = "sys_user/getPaged";
+            let url = "http://localhost:9100/sys_user/getPaged";
             this.$http.get(url,{params:params}).then(res=>{
                 this.pageInfo = res.data.data;
                 console.log(this.pageInfo);
@@ -203,7 +203,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
                 }).then(()=>{
-                    let url = `sys_user/resetPassword`;
+                    let url = `http://localhost:9100/sys_user/resetPassword`;
                     this.$http.post(url,scope.row.username).then(res=>{
                         if(res.data.data){
                             this.$message({
@@ -237,7 +237,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                let url = `sys_user/${scope.row.id}`;
+                let url = `http://localhost:9100/sys_user/${scope.row.id}`;
                 this.$http.delete(url).then(res=>{
                 if(res.data.data){
                     this.$message({
@@ -267,7 +267,7 @@ export default {
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(()=>{
-                    let url = "sys_user/edit";
+                    let url = "http://localhost:9100/sys_user/edit";
                     this.$http.put(url,this.user).then(res=>{
                         if(res.data.data){
                             this.$message({
@@ -287,7 +287,7 @@ export default {
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(()=>{
-                    let url = "sys_user/register";
+                    let url = "http://localhost:9100/sys_user/register";
                     this.$http.put(url,this.user).then(res=>{
                         if(res.data.data){
                             this.$message({

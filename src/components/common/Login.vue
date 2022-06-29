@@ -25,7 +25,7 @@ export default {
   name: "Login",
   data(){
     let checkCodeValidate = (rule,value,callback)=>{
-      let url = "sys_user/checkCode";
+      let url = "http://localhost:9100/sys_user/checkCode";
       this.$http.post(url,this.user.checkCode).then(res=>{
         if(!res.data.data){
           callback(new Error("验证码输入错误！"));
@@ -60,7 +60,7 @@ export default {
       this.$refs["login"].validate(valid=>{
         if(valid){
           //登录、
-          let url = "sys_user/login";
+          let url = "http://localhost:9100/sys_user/login";
           this.$http.post(url,this.user).then(res=>{
             if(res.data.code == 2000){
               alert(res.data.message)

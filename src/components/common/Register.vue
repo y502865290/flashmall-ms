@@ -30,7 +30,7 @@
 export default {
     data(){
         let checkCodeValidate = (rule,value,callback)=>{
-            let url = "sys_user/checkCode";
+            let url = "http://localhost:9100/sys_user/checkCode";
             this.$http.post(url,this.user.checkCode).then(res=>{
                 if(!res.data.data){
                     callback(new Error("验证码输入错误！"));
