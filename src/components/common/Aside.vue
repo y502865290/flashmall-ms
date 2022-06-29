@@ -16,8 +16,18 @@
           <el-menu-item index="1-1">
             管理员管理
           </el-menu-item>
-          
         </el-sub-menu>
+
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon><User /></el-icon>
+            商品管理
+          </template>
+          <el-menu-item index="2-1" @click="toProductCatelog()">
+            商品类别管理
+          </el-menu-item>
+        </el-sub-menu>
+
     </el-menu>
   </el-aside>
 </template>
@@ -34,7 +44,9 @@ export default {
     
   },
   methods:{
-
+    toProductCatelog(){
+      this.$router.push({path:'/main/product/category'})
+    }
   }
 }
 </script>

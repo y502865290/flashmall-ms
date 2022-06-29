@@ -8,7 +8,13 @@ export default createRouter({
         },
         {
             path:'/main',
-            component:()=>import('../components/common/main')
+            component:()=>import('../components/common/Main'),
+            children:[
+                {
+                    path:'product/category',
+                    component:()=>import('../components/product/Category')
+                }
+            ]
         }
     ]
 })
