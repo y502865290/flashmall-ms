@@ -13,7 +13,8 @@
             <el-icon><User /></el-icon>
             用户管理
           </template>
-          <el-menu-item index="1-1">
+          <el-menu-item index="1-1" @click="goUser">
+            <el-icon><document /></el-icon>
             管理员管理
           </el-menu-item>
           
@@ -34,7 +35,9 @@ export default {
     
   },
   methods:{
-
+    goUser(){
+      this.$router.push({path:'/admin/user'})
+    }
   }
 }
 </script>

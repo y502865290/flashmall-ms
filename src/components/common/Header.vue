@@ -21,7 +21,9 @@
       </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item>退出登录</el-dropdown-item>
+        <el-dropdown-item @click="goLogin">
+          退出登录
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -41,12 +43,20 @@ export default {
   },
   data() {
     return {
-      account:"admin",
+      account:"{{ login_username }}",
       imgUrl:"../../assets/img/img.jpg"
     };
   },
   methods: {
-
+    goLogin(){
+      this.$router.push({path:'/'})
+    }
+  },
+  computed:{
+    login_username() {
+      return this.$store.state.user.username
+      
+    }
   }
 }
 </script>
