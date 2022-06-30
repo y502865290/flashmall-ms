@@ -64,6 +64,7 @@ export default {
           this.$http.post(url,this.user).then(res=>{
             if(res.data.code == 2000){
               alert(res.data.message)
+              this.$store.commit('setUser',this.user.username);
               this.$router.push({path:"/main"});
             }else{
               alert(res.data.message);

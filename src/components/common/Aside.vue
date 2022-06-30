@@ -13,7 +13,7 @@
             <el-icon><User /></el-icon>
             用户管理
           </template>
-          <el-menu-item index="1-1" @click="goUser">
+          <el-menu-item index="1-1" @click="toUser()">
             <el-icon><document /></el-icon>
             管理员管理
           </el-menu-item>
@@ -26,6 +26,9 @@
           </template>
           <el-menu-item index="2-1" @click="toProductCatelog()">
             商品类别管理
+          </el-menu-item>
+          <el-menu-item index="2-2" @click="toProductBrand()">
+            品牌管理
           </el-menu-item>
         </el-sub-menu>
 
@@ -48,7 +51,10 @@ export default {
     toProductCatelog(){
       this.$router.push({path:'/main/product/category'})
     },
-    goUser(){
+    toProductBrand(){
+      this.$router.push({path:'/main/product/brand'})
+    },
+    toUser(){
       this.$router.push({path:'/admin/user'})
     }
   }

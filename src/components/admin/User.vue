@@ -1,4 +1,5 @@
 <template>
+    <h1>用户管理</h1>
     <el-button type="default" @click="add">添加用户</el-button>
     <el-table :data="pageInfo.list" stripe  style="width:100%">
         <el-table-column prop="id" label="用户id"></el-table-column>
@@ -17,7 +18,7 @@
     </el-table>
 
     <el-pagination
-        class="pageInfo"
+        
         layout="prev,pager,next,total,jumper,sizes"
         :total="pageInfo.total"
         v-model:current-page="pageInfo.pageNum"
@@ -29,27 +30,27 @@
     >
     </el-pagination>
 
-    <el-dialog v-model="changePasswordDisableDialog" title="修改密码" center width="600px">
-        <el-form :model="user" :rules="rules" ref="editUser">
+    <el-dialog v-model="changePasswordDisableDialog" title="修改密码" center width="550px">
+        <el-form :model="user" :rules="rules" ref="changePassword" label-width="80px">
         <h4>当前用户用户名：{{user.username}}</h4>
-        <el-form-item prop="password">
+        <el-form-item label="密码" prop="password">
             <el-input type="password" placeholder="请输入密码" v-model="user.password"></el-input>
         </el-form-item>
-        <el-form-item prop="passwordChecked">
+        <el-form-item label="确认密码" prop="passwordChecked">
             <el-input type="password" placeholder="请确认密码" v-model="user.passwordChecked"></el-input>
         </el-form-item>
-        <el-form-item prop="checkCode">
-            <img :src="imgURL"><a href="#" @click="getCode">看不清</a>
-            <el-input type="text" placeholder="请输入验证码" v-model="user.checkCode"></el-input>
+        <el-form-item label="验证码" prop="checkCode">
+            <el-input type="text" placeholder="请输入验证码" v-model="user.checkCode" style="width:fit-content"></el-input>
+            <img :src="imgURL" @click="getCode"><span>点击图片更换验证码</span>
         </el-form-item>
         </el-form>
         <template #footer>
             <el-button @click="cancelSave">取消</el-button>
-            <el-button type="primary" @click="saveData">确定</el-button>
+            <el-button type="primary" @click="saveData('changePassword')">确定</el-button>
         </template>
     </el-dialog>
 
-    <el-dialog v-model="disableDialog" title="编辑用户" center width="600px">
+    <el-dialog v-model="disableDialog" title="编辑用户" center width="450px">
         <el-form :model="user" :rules="rules" ref="editUser" label-width="80px">
         <el-form-item label="用户名" prop="username">
             <el-input v-model="user.username" placeholder="请输入用户名"></el-input>
@@ -63,32 +64,32 @@
         </el-form>
         <template #footer>
             <el-button @click="cancelSave">取消</el-button>
-            <el-button type="primary" @click="saveData">保存</el-button>
+            <el-button type="primary" @click="saveData('editUser')">保存</el-button>
         </template>
     </el-dialog>
 
-    <el-dialog v-model="addDisableDialog" title="添加用户" center width="450px">
-        <el-form :model="user" :rules="rules" ref="addUser">
-            <el-form-item prop="username">
-            <el-input type="text" placeholder="请输入用户名" v-model="user.username"></el-input>
+    <el-dialog v-model="addDisableDialog" title="添加用户" center width="550px">
+        <el-form :model="user" :rules="rules" ref="addUser" label-width="80px">
+            <el-form-item label="用户名" prop="username">
+                <el-input type="text" placeholder="请输入用户名" v-model="user.username"></el-input>
             </el-form-item>
-            <el-form-item prop="password">
-            <el-input type="password" placeholder="请输入密码" v-model="user.password"></el-input>
+            <el-form-item label="密码" prop="password">
+                <el-input type="password" placeholder="请输入密码" v-model="user.password"></el-input>
             </el-form-item>
-            <el-form-item prop="passwordChecked">
-            <el-input type="password" placeholder="请确认密码" v-model="user.passwordChecked"></el-input>
+            <el-form-item label="确认密码" prop="passwordChecked">
+                <el-input type="password" placeholder="请确认密码" v-model="user.passwordChecked"></el-input>
             </el-form-item>
-            <el-form-item prop="phone">
-            <el-input type="text" placeholder="请输入联系方式" v-model="user.phone"></el-input>
+            <el-form-item label="联系方式" prop="phone">
+                <el-input type="text" placeholder="请输入联系方式" v-model="user.phone"></el-input>
             </el-form-item>
-            <el-form-item prop="checkCode">
-            <img :src="imgURL"><a href="#" @click="getCode">看不清</a>
-            <el-input type="text" placeholder="请输入验证码" v-model="user.checkCode"></el-input>
+            <el-form-item label="验证码" prop="checkCode">
+                <el-input type="text" placeholder="请输入验证码" v-model="user.checkCode" style="width:fit-content"></el-input>
+                <img :src="imgURL" @click="getCode"><span>点击图片更换验证码</span>
             </el-form-item>
         </el-form>
         <template #footer>
             <el-button @click="cancelSave">取消</el-button>
-            <el-button type="primary" @click="saveData">添加</el-button>
+            <el-button type="primary" @click="saveData('addUser')">添加</el-button>
         </template>
     </el-dialog>
     
@@ -169,6 +170,10 @@ export default {
         this.showData();
     },
     methods:{
+        getCode(){
+            this.imgURL = this.imgURL + "?" +Math.random();
+            this.user.checkCode = "";
+        },
         showData(){
             let params = {
                 pageNum:this.pageInfo.pageNum,
@@ -245,7 +250,7 @@ export default {
                     message: '删除成功!'
                     });
                 }
-                this.depts.splice(scope.$index,1);
+                this.showData();
                 })
             }).catch(() => {
                 this.$message({
@@ -260,69 +265,73 @@ export default {
             this.user={};
             this.user = {...scope.row};
         },
-        saveData(){
-            if(this.disableDialog){
-                this.$confirm("数据即将保存，是否确认？","提示",{
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(()=>{
-                    let url = "http://localhost:9100/sys_user/edit";
-                    this.$http.put(url,this.user).then(res=>{
-                        if(res.data.data){
-                            this.$message({
-                            type: 'success',
-                            message: '保存成功!'
-                        });
-                        this.disableDialog = false;
-                        this.user = {};
-                        this.showData();
-                        }
-                    })
-                })
-            }
-            if(this.addDisableDialog){
-                this.$confirm("数据即将保存并添加，是否确认？","提示",{
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(()=>{
-                    let url = "http://localhost:9100/sys_user/register";
-                    this.$http.put(url,this.user).then(res=>{
-                        if(res.data.data){
-                            this.$message({
-                            type: 'success',
-                            message: '添加成功!'
-                            });
-                            this.addDisableDialog = false;
-                            this.user = {};
-                            this.pageInfo.pageNum = 1;
-                            this.showData();
-                        }
-                    })
-                })
-            }
-            if(this.changePasswordDisableDialog){
-                this.$confirm("密码即将修改并确认，是否确认？","提示",{
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(()=>{
-                    let url = "sys_user/changePassword";
-                    this.$http.put(url,this.user).then(res=>{
-                        if(res.data.data){
-                            this.$message({
-                            type: 'success',
-                            message: '密码修改成功!'
-                            });
-                            this.changePasswordDisableDialog = false;
-                            this.user = {};
-                            this.pageInfo.pageNum = 1;
-                            this.showData();
-                        }
-                    })
-                })
-            }
+        saveData(res_name){
+            this.$refs[res_name].validate((valid)=>{
+                if(valid){
+                    if(this.disableDialog){
+                        this.$confirm("数据即将保存，是否确认？","提示",{
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        }).then(()=>{
+                            let url = "http://localhost:9100/sys_user/edit";
+                            this.$http.put(url,this.user).then(res=>{
+                                if(res.data.data){
+                                    this.$message({
+                                    type: 'success',
+                                    message: '保存成功!'
+                                });
+                                this.disableDialog = false;
+                                this.user = {};
+                                this.showData();
+                                }
+                            })
+                        })
+                    }
+                    if(this.addDisableDialog){
+                        this.$confirm("数据即将保存并添加，是否确认？","提示",{
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        }).then(()=>{
+                            let url = "http://localhost:9100/sys_user/register";
+                            this.$http.put(url,this.user).then(res=>{
+                                if(res.data.data){
+                                    this.$message({
+                                    type: 'success',
+                                    message: '添加成功!'
+                                    });
+                                    this.addDisableDialog = false;
+                                    this.user = {};
+                                    this.pageInfo.pageNum = 1;
+                                    this.showData();
+                                }
+                            })
+                        })
+                    }
+                    if(this.changePasswordDisableDialog){
+                        this.$confirm("密码即将修改并确认，是否确认？","提示",{
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        }).then(()=>{
+                            let url = "http://localhost:9100/sys_user/changePassword";
+                            this.$http.put(url,this.user).then(res=>{
+                                if(res.data.data){
+                                    this.$message({
+                                    type: 'success',
+                                    message: '密码修改成功!'
+                                    });
+                                    this.changePasswordDisableDialog = false;
+                                    this.user = {};
+                                    this.pageInfo.pageNum = 1;
+                                    this.showData();
+                                }
+                            })
+                        })
+                    }
+                }
+            })
         },
         cancelSave(){
             if(this.disableDialog){
@@ -364,17 +373,8 @@ export default {
 </script>
 
 <style scope>
-.registerForm{
-  width:350px;
-  margin:100px auto 10px;
-  border:1px solid #eaeaea;
-  padding:35px 35px 15px 35px;
-  border-radius: 15px;
-  box-shadow:0 0 25px #cac6c6;
-}
-.register-title{
-  text-align: center;
-  color:#505458;
-  margin:0px auto 40px;
-}
+.el-pagination{
+  text-align:center;
+  margin-top:20px;
+} 
 </style>
