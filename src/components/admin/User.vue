@@ -373,7 +373,7 @@ export default {
 </script>
 
 <style scope>
-.el-pagination{
+el-pagination{
   text-align:center;
   margin-top:20px;
 } 

@@ -18,7 +18,7 @@ export default createRouter({
         },
         {
             path:'/main',
-            component:()=>import('../components/common/Main'),
+            component:()=>import('../components/common/main'),
             meta:{
                 title:"flashmall后台管理系统"
             },
