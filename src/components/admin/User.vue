@@ -364,17 +364,5 @@ export default {
 </script>
 
 <style scope>
-.registerForm{
-  width:350px;
-  margin:100px auto 10px;
-  border:1px solid #eaeaea;
-  padding:35px 35px 15px 35px;
-  border-radius: 15px;
-  box-shadow:0 0 25px #cac6c6;
-}
-.register-title{
-  text-align: center;
-  color:#505458;
-  margin:0px auto 40px;
-}
+
 </style>
