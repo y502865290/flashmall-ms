@@ -45,8 +45,12 @@
                       @click="toProductCatelog()">
           商品类别管理
         </el-menu-item>
+        <el-menu-item index="2-2"
+                      v-if="authority.brandManage"
+                      @click="toProductBrandCatelog()">
+          品牌管理
+        </el-menu-item>
       </el-sub-menu>
-
     </el-menu>
   </el-aside>
 </template>
@@ -61,7 +65,8 @@ export default {
         admainManage: false,
         authorityManage: false,
         productManage: false,
-        catoryManage: false
+        catoryManage: false,
+        brandManage: false
       }
     }
   },
@@ -75,10 +80,14 @@ export default {
       this.authority.authorityManage = this.$store.state.authority[this.$power.map.get("用户管理-权限管理").property]
       this.authority.productManage = this.$store.state.authority[this.$power.map.get("商品管理").property]
       this.authority.catoryManage = this.$store.state.authority[this.$power.map.get("商品管理-类别管理").property]
+      this.authority.brandManage = this.$store.state.authority[this.$power.map.get("商品管理-品牌管理").property]
       Object.freeze(this.authority)
     },
     toProductCatelog () {
       this.$router.push({ path: '/main/product/category' })
+    },
+    toProductBrandCatelog () {
+      this.$router.push({ path: '/main/product/brand' })
     },
     goUser () {
       this.$router.push({ path: '/admin/user' })

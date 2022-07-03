@@ -1,6 +1,7 @@
 <template>
   <span>
-    <el-button type="primary" v-if="authority.createCategoryAuthority"
+    <el-button type="primary"
+               v-if="authority.createCategoryAuthority"
                @click="toCreateCategoryLevel1()">添加类别</el-button>
     <el-input v-model="query"
               style="width:200px;margin-left:15px"
@@ -285,7 +286,7 @@ export default {
       this.$power.totalCheckAuthority(this.authority)
     },
     getData () {
-      this.$http.get('http://localhost:9200/pms_category/getAllCategory')
+      this.$http.get(this.$url.PmsCategoryControllerBaseUrl + '/getAllCategory')
         .then((res) => {
           if (res.data.code == 2000) {
             this.data = res.data.data.data
@@ -320,7 +321,7 @@ export default {
       this.dialogVisible = true;
     },
     toConfirmCreateCategoryLevel1 () {
-      this.$http.put('http://localhost:9200/pms_category/addCategoryLevel1', this.pmsCategory)
+      this.$http.put(this.$url.PmsCategoryControllerBaseUrl + '/addCategoryLevel1', this.pmsCategory)
         .then((result) => {
           if (result.data.code == 2000) {
             this.getData()
@@ -350,7 +351,7 @@ export default {
       this.dialogVisible = false;
     },
     toConfirmCreateCategorySon () {
-      this.$http.put('http://localhost:9200/pms_category/addCategoryLevel1', this.pmsCategorySon)
+      this.$http.put(this.$url.PmsCategoryControllerBaseUrl + '/addCategoryLevel1', this.pmsCategorySon)
         .then((result) => {
           if (result.data.code == 2000) {
             this.getData()
@@ -421,7 +422,7 @@ export default {
       this.dialogVisibleUpdate = false
     },
     toUpdateCategory () {
-      this.$http.post('http://localhost:9200/pms_category/updateCategory', this.pmsCategoryUpdate)
+      this.$http.post(this.$url.PmsCategoryControllerBaseUrl + '/updateCategory', this.pmsCategoryUpdate)
         .then((res) => {
           if (res.data.code == 2000) {
             this.$message({
@@ -464,7 +465,7 @@ export default {
             type: 'error',
           }
         ).then(() => {
-          this.$http.delete('http://localhost:9200/pms_category/deleteCategory', {
+          this.$http.delete(this.$url.PmsCategoryControllerBaseUrl + '/deleteCategory', {
             params: { id: node.data.id }
           }).then((res) => {
             if (res.data.code == 2000) {
@@ -496,7 +497,7 @@ export default {
             type: 'warning',
           }
         ).then(() => {
-          this.$http.delete('http://localhost:9200/pms_category/deleteCategory', {
+          this.$http.delete(this.$url.PmsCategoryControllerBaseUrl + '/deleteCategory', {
             params: { id: node.data.id }
           }).then((res) => {
             if (res.data.code == 2000) {

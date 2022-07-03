@@ -1,4 +1,5 @@
 <template>
+<h1>用户管理</h1>
   <el-button type="default"
              v-if="authority.userAdd"
              @click="add">添加用户</el-button>
@@ -175,6 +176,7 @@
     </template>
   </el-dialog>
 
+
 </template>
 
 <script>
@@ -243,7 +245,6 @@ export default {
           { required: true, message: "请确认密码", trigger: ['blur', 'change'] },
           { min: 2, max: 10, message: '密码长度必须在2-10个字符之间', trigger: ['blur', 'change'] },
           { validator: checkPassValidate, trigger: ['blur', 'change'] }
-
         ],
         phone: [
           { required: true, message: "请输入联系方式", trigger: ['blur', 'change'] },
@@ -256,6 +257,7 @@ export default {
         ]
       },
       imgURL: this.$url.SysUserControllerBaseUrl + '/getCode'
+
     }
   },
   created () {
@@ -511,17 +513,8 @@ export default {
 </script>
 
 <style scope>
-.registerForm {
-  width: 350px;
-  margin: 100px auto 10px;
-  border: 1px solid #eaeaea;
-  padding: 35px 35px 15px 35px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px #cac6c6;
-}
-.register-title {
-  text-align: center;
-  color: #505458;
-  margin: 0px auto 40px;
-}
+el-pagination{
+  text-align:center;
+  margin-top:20px;
+} 
 </style>

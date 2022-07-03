@@ -30,6 +30,11 @@ export default{
         this.map.set("商品管理-类别管理-删除",{property:"productCategoryDelete",note:""})
         this.map.set("商品管理-类别管理-修改",{property:"productCategoryUpdate",note:""})
 
+        this.map.set("商品管理-品牌管理",{property:"productBrand",note:""})
+        this.map.set("商品管理-品牌管理-添加",{property:"productBrandAdd",note:""})
+        this.map.set("商品管理-品牌管理-修改",{property:"productBrandUpdate",note:""})
+        this.map.set("商品管理-品牌管理-删除",{property:"productBrandDelete",note:""})
+
         
     },
     totalCheckAuthority(authority){

@@ -11,7 +11,6 @@ export default createRouter({
         },
         {
             path:'/register',
-            name:'register',
             component:()=>import('../components/common/Register'),
             meta:{
                 title:"flashmall后台注册系统"
@@ -30,6 +29,10 @@ export default createRouter({
                         title:'商品类别管理'
                     },
                     component:()=>import('../components/product/Category')
+                },
+                {
+                    path:'product/brand',
+                    component:()=>import('../components/product/Brand')
                 },
                 {
                     path:'/admin/user',
