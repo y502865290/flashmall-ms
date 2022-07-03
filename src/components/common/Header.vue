@@ -1,33 +1,31 @@
 <template>
-  <el-header class="header" >
-  <el-menu
-    class="el-menu"
-    mode="horizontal"
-    background-color="#242f42"
-    text-color="#fff"
-    active-text-color="#ffd04b"
-    @select="handleSelect"
-  >
-    <div class="logo">flashmall后台管理系统</div>
+  <el-header class="header">
+    <el-menu class="el-menu"
+             mode="horizontal"
+             background-color="#242f42"
+             text-color="#fff"
+             active-text-color="#ffd04b">
+      <div class="logo">flashmall后台管理系统</div>
       <div class="user-avator">
-        <img class="img" src="../../assets/img/img.jpg" />
+        <img class="img"
+             src="../../assets/img/img.jpg" />
       </div>
-      <el-dropdown >
-      <span class="el-dropdown-link">
-        {{account}}
-        <el-icon class="el-icon--right">
-          <arrow-down />
-        </el-icon>
-      </span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item @click="goLogin">
-          退出登录
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-  </el-menu>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          {{account}}
+          <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="logout">
+              退出登录
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </el-menu>
 
   </el-header>
 
@@ -38,24 +36,18 @@
 <script>
 
 export default {
-  created() {
-
+  created () {
+    this.account = this.$store.state.user.username
   },
-  data() {
+  data () {
     return {
-      account:"{{ login_username }}",
-      imgUrl:"../../assets/img/img.jpg"
+      account: "",
+      imgUrl: "../../assets/img/img.jpg"
     };
   },
   methods: {
-    goLogin(){
-      this.$router.push({path:'/'})
-    }
-  },
-  computed:{
-    login_username() {
-      return this.$store.state.user.username
-      
+    logout () {
+      this.$power.logout()
     }
   }
 }
@@ -71,10 +63,10 @@ export default {
   color: #fff;
   padding: 0;
 }
-.el-menu{
+.el-menu {
   height: 70px;
   width: 100%;
-  margin:0;
+  margin: 0;
 }
 .logo {
   margin-left: 20px;
@@ -100,7 +92,6 @@ export default {
   color: #fff;
   cursor: pointer;
   align-self: center;
-  margin-right:30px ;
+  margin-right: 30px;
 }
-
 </style>

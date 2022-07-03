@@ -26,12 +26,33 @@ export default createRouter({
             children:[
                 {
                     path:'product/category',
+                    meta:{
+                        title:'商品类别管理'
+                    },
                     component:()=>import('../components/product/Category')
                 },
                 {
                     path:'/admin/user',
                     name:'admin_user',
+                    meta:{
+                        title:'用户管理'
+                    },
                     component:()=>import('../components/admin/User')
+                },
+                {
+                    path:'admin/authority',
+                    name:'authority',
+                    meta:{
+                        title:'权限管理'
+                    },
+                    component:()=>import('../components/admin/Authority')
+                },
+                {
+                    path:'welcome',
+                    meta:{
+                        title:'欢迎使用'
+                    },
+                    component:()=>import('../components/common/Welcome')
                 }
             ]
         }

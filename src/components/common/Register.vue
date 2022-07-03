@@ -30,7 +30,7 @@
 export default {
     data(){
         let checkCodeValidate = (rule,value,callback)=>{
-            let url = "http://localhost:9100/sys_user/checkCode";
+            let url = this.$url.SysUserControllerBaseUrl + "/checkCode";
             this.$http.post(url,this.user.checkCode).then(res=>{
                 if(!res.data.data){
                     callback(new Error("验证码输入错误！"));
@@ -75,7 +75,7 @@ export default {
                 {validator:checkCodeValidate,trigger:'blur'}
             ]
             },
-            imgURL:'http://localhost:9100/sys_user/getCode'
+            imgURL:this.$url.SysUserControllerBaseUrl + '/getCode'
         }
     },
     methods:{
